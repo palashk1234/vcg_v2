@@ -6,7 +6,8 @@ echo "Initializing Workspace..."
 # Clone VibeVoice if it hasn't been cloned yet
 if [ ! -d "VibeVoice" ]; then
     echo "Cloning VibeVoice repository..."
-    git clone https://github.com/microsoft/VibeVoice.git VibeVoice
+    # git clone https://github.com/microsoft/VibeVoice.git VibeVoice
+    git clone https://github.com/vibevoice-community/VibeVoice.git
 fi
 
 # Create persistent and temporary directories locally
