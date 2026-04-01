@@ -1,0 +1,23 @@
+services:
+  vcg_v2:
+    build: .
+    container_name: VCG_V2
+    ports:
+      - "7860:7860"
+    volumes:
+      # --- User Data Volumes ---
+      - ./final_outputs:/app/final_outputs
+      - ./stock_videos:/app/stock_videos
+      
+      # --- AI Model Cache Volumes ---
+      - ./hf_cache:/root/.cache/huggingface
+      - ./rembg_cache:/root/.u2net
+      
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    restart: unless-stopped

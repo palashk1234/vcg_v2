@@ -1,0 +1,15 @@
+gradio==4.44.1
+fastapi==0.112.2
+starlette==0.38.2
+huggingface-hub<0.27.0
+faster-whisper
+rembg
+onnxruntime-gpu
+Pillow
+soundfile
+transformers
+accelerate
+numpy<2
+pydantic<2.10
+mutagen
+pycryptodomex
