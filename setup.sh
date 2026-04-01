@@ -9,6 +9,9 @@ if [ ! -d "VibeVoice" ]; then
     # git clone https://github.com/microsoft/VibeVoice.git VibeVoice
     # git clone https://github.com/vibevoice-community/VibeVoice.git
     git clone https://github.com/palashk1234/VibeVoice.git
+    cd VibeVoice
+    pip install -e .
+    cd ..
 fi
 
 # Create persistent and temporary directories locally
