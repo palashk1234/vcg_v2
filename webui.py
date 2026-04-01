@@ -21,11 +21,9 @@ gr.close_all()
 if not hasattr(torchaudio, 'list_audio_backends'):
     torchaudio.list_audio_backends = lambda: ['soundfile']
 
-# --- UNIVERSAL PATH LOGIC (Colab vs Docker/Local) ---
-if "google.colab" in sys.modules or os.path.exists("/content"):
-    BASE_DIR = "/content"
-else:
-    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# --- TRULY UNIVERSAL PATH LOGIC ---
+# This natively detects whatever folder the script is currently inside (e.g. /app/ or /content/vcg_v2/)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 WORK_DIR = os.path.join(BASE_DIR, "VibeVoice")
 OUTPUT_DIR = os.path.join(BASE_DIR, "final_outputs")
@@ -495,7 +493,6 @@ with gr.Blocks(theme=bw_theme, css=custom_css, js=dark_mode_js) as ui:
                 with gr.Column(scale=1):
                     tab2_audio_in = gr.Audio(type="filepath", label="Podcast Audio (Auto-filled or Upload manually)")
                     
-                    # NEW: Independent Script Textbox for Tab 2
                     tab2_script_in = gr.Textbox(label="Podcast Script (Auto-filled or Paste manually)", lines=8, placeholder="Speaker 1: ...\nSpeaker 2: ...")
                     
                     gr.HTML("<span style='color: #FFFFFF; font-size: 14px; margin-bottom: 5px; margin-top: 15px; display: block;'>Background Video</span>")
@@ -514,7 +511,6 @@ with gr.Blocks(theme=bw_theme, css=custom_css, js=dark_mode_js) as ui:
                     main_video_out = gr.Video(label="Final Generated Video", interactive=False)
                     video_gallery = gr.Gallery(label="Generated Video Library", columns=2, object_fit="contain", height="300px", allow_preview=True)
 
-            # Bridging logic: Clicking Generate Audio auto-populates BOTH the audio player AND the script box in Tab 2
             generate_audio_btn.click(
                 fn=lambda: lock_ui("⏳ Generating..."), outputs=generate_audio_btn, queue=False
             ).then(
